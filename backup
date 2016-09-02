@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+Dir.glob('*').select do |f|
+  if File.directory? f then
+    abs = File.expand_path("./"+ f)           
+    absTarZip = abs + ".tar.bz2"
+    absTarZipGpg = absTarZip+".gpg"
+    #puts abs
+    #puts absTarZip 
+
+    `tar -cyf #{absTarZip} #{abs}`
+    `gpg -c #{absTarZip}`
+    `cp  #{absTarZipGpg} ~/Sync/CV/`
+    `rm #{absTarZip}`
+    `rm #{absTarZipGpg}`
+    puts "Backed up #{abs}"
+  end
+  
+end
+puts "Goodbye"
+
+
